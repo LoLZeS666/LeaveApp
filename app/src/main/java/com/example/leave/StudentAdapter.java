@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder>{
 
-    ArrayList<String[]> list = new ArrayList<>();
+    ArrayList<application> list = new ArrayList<>();
 
-    public StudentAdapter(ArrayList<String[]> list, Context context) {
+    public StudentAdapter(ArrayList<application> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -31,11 +31,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String[] student = list.get(position);
-        holder.heading.setText(student[0]);
-        holder.subheading.setText(student[1]);
-        holder.approve.setText(student[2]);
-        holder.status.setText(student[3]);
+        application student = list.get(position);
+        holder.heading.setText(student.getStart().toString());
+        holder.subheading.setText(student.getEnd().toString());
+        holder.approve.setText(student.getReason().toString());
     }
 
     @Override
