@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black"
+    android:layout_height="match_parent"
+    tools:context=".ShowApplication">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="Application Content"
+        android:textSize="29dp"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/nameLabel"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Student Name"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/name"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bache ka naam"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/startLabel"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Leave Starting Date"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/startDate"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pehla din"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/endLabel"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last Date of Leave"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/endDate"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aakhri Din"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/reasonLabel"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reason for leave application"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/reason"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bache ka Bahana"
+        />
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/supportingDoc"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Supporting Document"
+        />
+
+    <RadioGroup
+        android:layout_marginTop="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Approve"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/approve"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deny"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/white"
+            android:id="@+id/deny"
+            />
+</RadioGroup>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+</LinearLayout>
