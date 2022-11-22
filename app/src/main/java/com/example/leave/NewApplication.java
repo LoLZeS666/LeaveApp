@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -97,7 +98,8 @@ public class NewApplication extends AppCompatActivity {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 String UID = mAuth.getUid();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                application app = new application("!23123", "24/11/2022", "niggers2", "x-ray");
+                application app = new application(start.getText().toString(), end.getText().toString(), reason.getText().toString(),
+                        type.getSelectedItem().toString());
                 Map<String, Object> mp = new HashMap<>();
                 mp.put("num_app", ServerValue.increment(1));
 
@@ -114,6 +116,14 @@ public class NewApplication extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+        Button cancel = findViewById(R.id.cancelButton);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), studentLanding.class);
+                startActivity(intent);
             }
         });
 

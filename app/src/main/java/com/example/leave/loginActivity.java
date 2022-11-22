@@ -32,7 +32,7 @@ public class loginActivity extends AppCompatActivity {
         Button signIn = findViewById(R.id.signIn);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(this, ShowApplication.class);
+            Intent intent = new Intent(this, studentLanding.class);
             startActivity(intent);
         } else {
             signIn.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +44,7 @@ public class loginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(getBaseContext(), NewApplication.class);
+                                Intent intent = new Intent(getBaseContext(), studentLanding.class);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(getApplicationContext(), "failed", Toast.LENGTH_SHORT).show();

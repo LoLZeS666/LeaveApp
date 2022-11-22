@@ -78,6 +78,14 @@
         android:backgroundTint="#34B3F1"
 
         android:text="Apply"/>
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#34B3F1"
+        android:text="Cancel"/>
 
 
 </LinearLayout>
