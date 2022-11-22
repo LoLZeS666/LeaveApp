@@ -5,30 +5,61 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
+
+import kotlin.Triple;
 
 public class TeacherDashboard extends AppCompatActivity {
-    ArrayList<String[]> list = new ArrayList<>();
+    ArrayList<Triple<application, String, Integer>> list = new ArrayList<>();
+    TeacherAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_dashboard);
-        list.add(new String[]{"Personal Work", "Approved for 2 days", "Asked by Ashlesh Jain", "Pending"});
-        list.add(new String[]{"Personal Work", "Approved for 2 days", "Asked by Ashlesh Jain", "Pending"});
-        list.add(new String[]{"Personal Work", "Approved for 2 days", "Asked by Ashlesh Jain", "Pending"});
-        list.add(new String[]{"Personal Work", "Approved for 2 days", "Asked by Ashlesh Jain", "Pending"});
-        list.add(new String[]{"Personal Work", "Approved for 2 days", "Asked by Ashlesh Jain", "Pending"});
-
-        TeacherAdapter adapter = new TeacherAdapter(list, this);
-        RecyclerView teacherDash = (RecyclerView)findViewById(R.id.teacherRecyclerView);
+        loadData();
+        adapter = new TeacherAdapter(list, this);
+        RecyclerView teacherDash = (RecyclerView) findViewById(R.id.teacherRecyclerView);
         teacherDash.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         teacherDash.setLayoutManager(layoutManager);
+    }
+
+    public void loadData() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        database.getReference().child("Applications").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot x : snapshot.getChildren()) {
+                    String key = x.getKey();
+                    for (DataSnapshot y : x.getChildren()) {
+                        Integer index = Integer.parseInt(y.getKey());
+                        application ap = y.getValue(application.class);
+                        if (ap.getPending() == true) list.add(new Triple<>(ap, key, index));
+                    }
+                }
+                Collections.reverse(list);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

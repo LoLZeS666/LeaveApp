@@ -3,6 +3,7 @@ package com.example.leave;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,10 +46,11 @@ public class loginActivity_teacher extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 boolean check = snapshot.child("student").getValue(boolean.class);
                                 if(!check){
-                                    Toast.makeText(loginActivity_teacher.this, "Teacher logged in", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), TeacherDashboard.class);
+                                    startActivity(intent);
                                 }
                                 else{
-                                    Toast.makeText(loginActivity_teacher.this, "Imposter", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
                                 }
                             }
 

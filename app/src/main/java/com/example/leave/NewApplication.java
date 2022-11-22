@@ -100,16 +100,23 @@ public class NewApplication extends AppCompatActivity {
                 String UID = mAuth.getUid();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 application app = new application(start.getText().toString(), end.getText().toString(), reason.getText().toString(),
-                        type.getSelectedItem().toString());
+                        type.getSelectedItem().toString(), "Pending", true, 0);
                 Map<String, Object> mp = new HashMap<>();
                 database.getReference().child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Integer cnt = snapshot.child("num_app").getValue(Integer.class);
-                        Toast.makeText(NewApplication.this, "cnt" + cnt, Toast.LENGTH_SHORT).show();
                         database.getReference().child("Applications").child(UID).child(cnt.toString()).setValue(app);
                         mp.put("num_app", ServerValue.increment(1));
                         database.getReference().child("Users").child(UID).updateChildren(mp);
+                        Toast.makeText(NewApplication.this, "Application Submitted to Teacher!", Toast.LENGTH_SHORT).show();
+                        try {
+                            NewApplication.this.wait(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(getApplicationContext(), studentLanding.class);
+                        startActivity(intent);
                     }
 
                     @Override

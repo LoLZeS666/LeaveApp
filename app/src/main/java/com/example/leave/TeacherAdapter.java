@@ -1,6 +1,7 @@
 package com.example.leave;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHolder>{
+import kotlin.Triple;
 
-    ArrayList<String[]> list = new ArrayList<>();
+public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHolder> {
 
-    public TeacherAdapter(ArrayList<String[]> list, Context context) {
+    ArrayList<Triple<application, String, Integer>> list = new ArrayList<>();
+
+    public TeacherAdapter(ArrayList<Triple<application, String, Integer>> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,11 +38,27 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String[] student = list.get(position);
-        holder.heading.setText(student[0]);
-        holder.subheading.setText(student[1]);
-        holder.approve.setText(student[2]);
-        holder.status.setText(student[3]);
+        application student = list.get(position).getFirst();
+        holder.heading.setText(student.getReason().toString());
+        holder.subheading.setText("From: " + student.getStart().toString());
+        holder.approve.setText("To: " + student.getEnd().toString());
+        holder.status.setText("Pending");
+        String UID = list.get(position).getSecond();
+        int cnt = list.get(position).getThird();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ShowApplication.class);
+                intent.putExtra("UID", UID);
+                intent.putExtra("Start", student.getStart().toString());
+                intent.putExtra("End", student.getEnd().toString());
+                intent.putExtra("Reason", student.getReason().toString());
+                intent.putExtra("cnt", cnt);
+                context.startActivity(intent);
+            }
+        });
+
+        //todo change how to set status#FF5722
     }
 
     @Override
@@ -50,6 +69,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView heading, subheading, approve, status;
         LinearLayout container;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

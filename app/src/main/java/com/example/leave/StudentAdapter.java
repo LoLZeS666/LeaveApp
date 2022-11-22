@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder>{
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder> {
 
     ArrayList<application> list = new ArrayList<>();
 
@@ -32,9 +32,11 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         application student = list.get(position);
-        holder.heading.setText(student.getStart().toString());
-        holder.subheading.setText(student.getEnd().toString());
-        holder.approve.setText(student.getReason().toString());
+        holder.heading.setText(student.getReason().toString());
+        holder.subheading.setText("From: " + student.getStart().toString());
+        holder.approve.setText("To: " + student.getEnd().toString());
+        holder.status.setText("Pending");
+        //todo change how to set status
     }
 
     @Override
@@ -44,6 +46,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView heading, subheading, approve, status;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
