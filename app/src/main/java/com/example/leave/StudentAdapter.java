@@ -35,7 +35,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         holder.heading.setText(student.getReason().toString());
         holder.subheading.setText("From: " + student.getStart().toString());
         holder.approve.setText("To: " + student.getEnd().toString());
-        holder.status.setText("Pending");
+        holder.status.setText(student.getStatus());
         //todo change how to set status
     }
 
