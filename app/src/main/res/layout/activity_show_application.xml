@@ -111,7 +111,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/grp">
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -132,7 +133,7 @@
 </RadioGroup>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm"

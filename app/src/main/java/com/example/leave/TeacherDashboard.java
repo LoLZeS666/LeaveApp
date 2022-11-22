@@ -52,6 +52,8 @@ public class TeacherDashboard extends AppCompatActivity {
                         if (ap.getPending() == true) list.add(new Triple<>(ap, key, index));
                     }
                 }
+                if(list.size()==0)
+                    Toast.makeText(TeacherDashboard.this, "No new applications at this time!", Toast.LENGTH_SHORT).show();
                 Collections.reverse(list);
                 adapter.notifyDataSetChanged();
             }
