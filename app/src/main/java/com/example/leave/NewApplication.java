@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -101,14 +102,14 @@ public class NewApplication extends AppCompatActivity {
                 application app = new application(start.getText().toString(), end.getText().toString(), reason.getText().toString(),
                         type.getSelectedItem().toString());
                 Map<String, Object> mp = new HashMap<>();
-                mp.put("num_app", ServerValue.increment(1));
-
-                database.getReference().child("Users").child(UID).updateChildren(mp);
                 database.getReference().child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Integer cnt = snapshot.child("num_app").getValue(Integer.class);
+                        Toast.makeText(NewApplication.this, "cnt" + cnt, Toast.LENGTH_SHORT).show();
                         database.getReference().child("Applications").child(UID).child(cnt.toString()).setValue(app);
+                        mp.put("num_app", ServerValue.increment(1));
+                        database.getReference().child("Users").child(UID).updateChildren(mp);
                     }
 
                     @Override
