@@ -38,6 +38,24 @@
         android:layout_height="wrap_content"
         android:text="Bache ka naam"
         />
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/rollLabel"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Roll Number"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="40dp"
+        android:id="@+id/roll"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bache ka naam"
+        />
 
     <TextView
         android:layout_marginTop="20dp"
