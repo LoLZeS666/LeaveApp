@@ -50,24 +50,24 @@ public class NewApplication extends AppCompatActivity {
 ////        spinner.setPrompt("choose_doc");
 //        spinner.setAdapter(adapter);
 
-        editText1=(EditText) findViewById(R.id.startDate);
-        editText2=(EditText) findViewById(R.id.endDate);
-        DatePickerDialog.OnDateSetListener date1 =new DatePickerDialog.OnDateSetListener() {
+        editText1 = (EditText) findViewById(R.id.startDate);
+        editText2 = (EditText) findViewById(R.id.endDate);
+        DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 myCalendar1.set(Calendar.YEAR, year);
-                myCalendar1.set(Calendar.MONTH,month);
-                myCalendar1.set(Calendar.DAY_OF_MONTH,day);
+                myCalendar1.set(Calendar.MONTH, month);
+                myCalendar1.set(Calendar.DAY_OF_MONTH, day);
 
                 updateLabel1();
             }
         };
-        DatePickerDialog.OnDateSetListener date2 =new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener date2 = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 myCalendar2.set(Calendar.YEAR, year);
-                myCalendar2.set(Calendar.MONTH,month);
-                myCalendar2.set(Calendar.DAY_OF_MONTH,day);
+                myCalendar2.set(Calendar.MONTH, month);
+                myCalendar2.set(Calendar.DAY_OF_MONTH, day);
 
                 updateLabel2();
             }
@@ -76,13 +76,13 @@ public class NewApplication extends AppCompatActivity {
         editText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog( NewApplication.this,date1,myCalendar1.get(Calendar.YEAR),myCalendar1.get(Calendar.MONTH),myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(NewApplication.this, date1, myCalendar1.get(Calendar.YEAR), myCalendar1.get(Calendar.MONTH), myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
         editText2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog( NewApplication.this,date2,myCalendar2.get(Calendar.YEAR),myCalendar2.get(Calendar.MONTH),myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(NewApplication.this, date2, myCalendar2.get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH), myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
@@ -133,16 +133,17 @@ public class NewApplication extends AppCompatActivity {
 
     }
 
-    private void updateLabel1(){
-        String myFormat="dd/MM/yy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+    private void updateLabel1() {
+        String myFormat = "dd/MM/yy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
         editText1.setText(dateFormat.format(myCalendar1.getTime()));
 
 
     }
-    private void updateLabel2(){
-        String myFormat="dd/MM/yy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
+
+    private void updateLabel2() {
+        String myFormat = "dd/MM/yy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
         editText2.setText(dateFormat.format(myCalendar2.getTime()));
     }
 

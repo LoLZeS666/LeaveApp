@@ -39,17 +39,16 @@ public class loginActivity_teacher extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         String UID = task.getResult().getUser().getUid();
-                        Log.wtf("UID",UID);
+                        Log.wtf("UID", UID);
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         database.getReference().child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 boolean check = snapshot.child("student").getValue(boolean.class);
-                                if(!check){
+                                if (!check) {
                                     Intent intent = new Intent(getApplicationContext(), TeacherDashboard.class);
                                     startActivity(intent);
-                                }
-                                else{
+                                } else {
                                     Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
                                 }
                             }
