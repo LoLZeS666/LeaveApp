@@ -1,11 +1,25 @@
 package com.example.leave;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,8 +27,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +50,9 @@ public class NewApplication extends AppCompatActivity {
 
     final Calendar myCalendar1 = Calendar.getInstance();
     final Calendar myCalendar2 = Calendar.getInstance();
+    private int code = 666;
+    private static final int REQUEST_CAMERRA_CODE = 100, pic_id = 123;
+    Bitmap bitmap;
 
     EditText editText1, editText2;
 
@@ -40,16 +61,20 @@ public class NewApplication extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_application);
 
-//        Spinner spinner = (Spinner) findViewById(R.id.docSpinner);
-//// Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//                R.array.documents, android.R.layout.simple_spinner_item);
-//// Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//// Apply the adapter to the spinner
-////        spinner.setPrompt("choose_doc");
-//        spinner.setAdapter(adapter);
+        Button capture  = findViewById(R.id.capture);
+        capture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, pic_id);
+            }
+        });
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA
+            }, REQUEST_CAMERRA_CODE);
+        }
         editText1 = (EditText) findViewById(R.id.startDate);
         editText2 = (EditText) findViewById(R.id.endDate);
         DatePickerDialog.OnDateSetListener date1 = new DatePickerDialog.OnDateSetListener() {
@@ -147,4 +172,31 @@ public class NewApplication extends AppCompatActivity {
         editText2.setText(dateFormat.format(myCalendar2.getTime()));
     }
 
+
+    private void getTextFromImage(Bitmap bitmap) {
+        TextRecognizer recognizer = new TextRecognizer.Builder(this).build();
+        if (!recognizer.isOperational()) {
+            Toast.makeText(this, "Error Occured", Toast.LENGTH_SHORT).show();
+        } else {
+            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+            SparseArray<TextBlock> textBlockSparseArray = recognizer.detect(frame);
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < textBlockSparseArray.size(); i++) {
+                TextBlock textBlock = textBlockSparseArray.valueAt(i);
+                stringBuilder.append(textBlock.getValue());
+                stringBuilder.append("\n");
+            }
+            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == pic_id) {
+            // BitMap is data structure of image file which store the image in memory
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            // Set the image in imageview for display
+            getTextFromImage(photo);
+        }
+    }
 }
