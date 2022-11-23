@@ -30,6 +30,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
@@ -39,7 +41,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,14 +59,18 @@ public class NewApplication extends AppCompatActivity {
     private int code = 666;
     private static final int REQUEST_CAMERRA_CODE = 100, pic_id = 123;
     Bitmap bitmap;
-
+    Bitmap photo;
     EditText editText1, editText2;
+    FirebaseStorage storage ;
+    StorageReference storageReference ;
+    Integer cnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_application);
-
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
         Button capture  = findViewById(R.id.capture);
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,10 +140,26 @@ public class NewApplication extends AppCompatActivity {
                 database.getReference().child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Integer cnt = snapshot.child("num_app").getValue(Integer.class);
+                        cnt = snapshot.child("num_app").getValue(Integer.class);
                         mp.put("num_app", ++cnt);
                         database.getReference().child("Users").child(UID).updateChildren(mp);
                         database.getReference().child("Applications").child(UID).child(cnt.toString()).setValue(app);
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                        byte[] up = baos.toByteArray();
+                        UploadTask uploadTask = storageReference.child(UID).child(String.valueOf(cnt)).putBytes(up);
+                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(NewApplication.this, "success", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(NewApplication.this, "Failed to upload", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         Toast.makeText(NewApplication.this, "Application Submitted to Teacher!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), studentLanding.class);
                         startActivity(intent);
@@ -144,6 +170,7 @@ public class NewApplication extends AppCompatActivity {
 
                     }
                 });
+
             }
         });
         Button cancel = findViewById(R.id.cancelButton);
@@ -186,16 +213,17 @@ public class NewApplication extends AppCompatActivity {
                 stringBuilder.append(textBlock.getValue());
                 stringBuilder.append("\n");
             }
-            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+
+            TextView tv = findViewById(R.id.reason);
+            tv.setText(stringBuilder.toString());
         }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == pic_id) {
-            // BitMap is data structure of image file which store the image in memory
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            // Set the image in imageview for display
+            photo = (Bitmap) data.getExtras().get("data");
             getTextFromImage(photo);
         }
     }

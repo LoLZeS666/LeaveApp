@@ -105,9 +105,19 @@
         android:layout_height="wrap_content"
         android:text="Supporting Document"
         />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:padding="15dp"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="show document"
+        android:id="@+id/showdoc"
+        android:background="@drawable/button_shape"
+        android:layout_marginTop="15dp"/>
 
     <RadioGroup
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

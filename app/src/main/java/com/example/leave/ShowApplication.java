@@ -40,6 +40,16 @@ public class ShowApplication extends AppCompatActivity {
         Toast.makeText(this, String.valueOf(intent.getIntExtra("cnt", 0)), Toast.LENGTH_SHORT).show();
         Button confirm = findViewById(R.id.confirm);
         RadioGroup radioGroup = findViewById(R.id.grp);
+        Button show = findViewById(R.id.showdoc);
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(getApplicationContext(), showProof.class);
+                intent1.putExtra("UID", intent.getStringExtra("UID"));
+                intent1.putExtra("cnt", intent.getIntExtra("cnt", 0));
+                startActivity(intent1);
+            }
+        });
         // find the radiobutton by returned id
 
         confirm.setOnClickListener(new View.OnClickListener() {
