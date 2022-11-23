@@ -15,50 +15,50 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:text="Create new Application"
-        android:textSize="29dp"
         android:textColor="@color/white"
+        android:textSize="29dp"
         android:textStyle="bold" />
 
 
-
     <EditText
-        android:layout_marginTop="80dp"
-        android:layout_marginHorizontal="40dp"
         android:id="@+id/startDate"
-        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Leave Starting Date"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/edit_custom"
         android:clickable="false"
         android:cursorVisible="false"
-        android:textColorHint="#7C7777"
-
         android:focusable="false"
         android:focusableInTouchMode="false"
-        />
+        android:hint="Leave Starting Date"
+
+        android:textColor="@color/white"
+        android:textColorHint="#7C7777" />
 
 
     <EditText
         android:id="@+id/endDate"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/white"
-        android:textColorHint="#7C7777"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:hint="Leave Ending Date"/>
-
+        android:layout_marginTop="25dp"
+        android:background="@drawable/edit_custom"
+        android:hint="Leave Ending Date"
+        android:textColor="@color/white"
+        android:textColorHint="#7C7777" />
 
 
     <EditText
         android:id="@+id/reason"
-        android:layout_marginHorizontal="40dp"
-        android:textColorHint="#7C7777"
-        android:textColor="@color/white"
-        android:hint="Enter your reason for leave"
-        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/edit_custom"
+        android:hint="Enter your reason for leave"
+        android:textColor="@color/white"
+        android:textColorHint="#7C7777" />
 
     <Spinner
         android:id="@+id/docSpinner"
@@ -67,25 +67,25 @@
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="25dp"
         android:entries="@array/documents"
-        android:prompt="@string/choose_doc"/>
+        android:prompt="@string/choose_doc" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/applyButton"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#34B3F1"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_shape"
+        android:text="Apply" />
 
-        android:text="Apply"/>
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancelButton"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#34B3F1"
-        android:text="Cancel"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_shape"
+        android:text="Cancel" />
 
 
 </LinearLayout>

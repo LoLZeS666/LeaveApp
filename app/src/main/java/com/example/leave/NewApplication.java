@@ -106,15 +106,10 @@ public class NewApplication extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Integer cnt = snapshot.child("num_app").getValue(Integer.class);
-                        database.getReference().child("Applications").child(UID).child(cnt.toString()).setValue(app);
-                        mp.put("num_app", ServerValue.increment(1));
+                        mp.put("num_app", ++cnt);
                         database.getReference().child("Users").child(UID).updateChildren(mp);
+                        database.getReference().child("Applications").child(UID).child(cnt.toString()).setValue(app);
                         Toast.makeText(NewApplication.this, "Application Submitted to Teacher!", Toast.LENGTH_SHORT).show();
-                        try {
-                            NewApplication.this.wait(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
                         Intent intent = new Intent(getApplicationContext(), studentLanding.class);
                         startActivity(intent);
                     }

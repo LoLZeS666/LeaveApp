@@ -1,8 +1,10 @@
 package com.example.leave;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,16 @@ public class TeacherDashboard extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         teacherDash.setLayoutManager(layoutManager);
+        Button logout = findViewById(R.id.logout_teacher);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                Intent intent = new Intent(getApplicationContext(), FirstPage.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void loadData() {
@@ -64,4 +76,23 @@ public class TeacherDashboard extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        FirebaseAuth mauth = FirebaseAuth.getInstance();
+        mauth.signOut();
+        Intent intent = new Intent(getApplicationContext(), FirstPage.class);
+        startActivity(intent);
+    }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        FirebaseAuth mauth = FirebaseAuth.getInstance();
+//        mauth.signOut();
+//        Intent intent = new Intent(getApplicationContext(), FirstPage.class);
+//        startActivity(intent);
+//    }
+
 }

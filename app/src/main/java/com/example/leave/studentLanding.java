@@ -43,4 +43,10 @@ public class studentLanding extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), FirstPage.class);
+        startActivity(intent);
+    }
 }

@@ -8,20 +8,22 @@
     tools:context=".studentLanding">
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/pastApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="67dp"
         android:layout_marginLeft="67dp"
         android:text="View Past"
+        android:background="@drawable/button_shape"
         app:layout_constraintBaseline_toBaselineOf="@+id/newApp"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/newApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
         android:layout_marginEnd="46dp"
         android:layout_marginRight="46dp"
         android:layout_marginBottom="258dp"
@@ -29,7 +31,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:background="@drawable/button_shape"
         android:id="@+id/out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
