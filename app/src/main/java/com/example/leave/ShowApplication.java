@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -37,6 +38,7 @@ public class ShowApplication extends AppCompatActivity {
         start = findViewById(R.id.startDate);
         end = findViewById(R.id.endDate);
         reason = findViewById(R.id.reason);
+        reason.setMovementMethod(new ScrollingMovementMethod());
         roll = findViewById(R.id.roll);
         Intent intent = getIntent();
         UID = intent.getStringExtra("UID");

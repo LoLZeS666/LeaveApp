@@ -16,7 +16,7 @@
         android:layout_marginTop="100dp"
         android:text="Student's Sign Up"
         android:textColor="@color/white"
-        android:textSize="18dp" />
+        android:textSize="30dp" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -24,11 +24,13 @@
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/student" />
+        app:srcCompat="@drawable/student"
+        android:background="@drawable/edit_custom"/>
 
 
     <EditText
         android:id="@+id/name_up"
+        android:background="@drawable/edit_custom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
@@ -40,6 +42,7 @@
 
     <EditText
         android:id="@+id/email_up"
+        android:background="@drawable/edit_custom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
@@ -52,6 +55,7 @@
 
     <EditText
         android:id="@+id/password_up"
+        android:background="@drawable/edit_custom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
@@ -67,17 +71,18 @@
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="25dp"
         android:hint="Roll Number"
+        android:background="@drawable/edit_custom"
         android:textColor="@color/white"
         android:textColorHint="#7C7777" />
 
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signUpStudent2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:backgroundTint="#34B3F1"
+        android:background="@drawable/button_shape"
         android:text="Sign Up" />
 </LinearLayout>

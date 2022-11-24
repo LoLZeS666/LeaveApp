@@ -27,7 +27,6 @@ public class FirstPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), loginActivity_teacher.class);
-                Toast.makeText(FirstPage.this, "started teacher activity", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
