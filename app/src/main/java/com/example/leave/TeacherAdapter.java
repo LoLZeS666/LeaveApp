@@ -43,6 +43,9 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
         holder.subheading.setText("From: " + student.getStart().toString());
         holder.approve.setText("To: " + student.getEnd().toString());
         holder.status.setText("Pending");
+
+        int score = student.getScore();
+        holder.score.setText(rate(score));
         String UID = list.get(position).getSecond();
         int cnt = list.get(position).getThird();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -61,13 +64,20 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
         //todo change how to set status#FF5722
     }
 
+    private String rate(int score) {
+        if(score==0)return "sussy baka";
+        else if(score==1)return "kinda sus";
+        else if(score==2)return "not sus frfr ong deadass nocap";
+        return "";
+    }
+
     @Override
     public int getItemCount() {
         return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView heading, subheading, approve, status;
+        TextView heading, subheading, approve, status, score;
         LinearLayout container;
 
         public ViewHolder(@NonNull View itemView) {
@@ -78,6 +88,7 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
             subheading = itemView.findViewById(R.id.mainTeacherSubHead);
             approve = itemView.findViewById(R.id.mainTeacherApprove);
             status = itemView.findViewById(R.id.mainTeacherStatus);
+            score = itemView.findViewById(R.id.score);
         }
     }
 }

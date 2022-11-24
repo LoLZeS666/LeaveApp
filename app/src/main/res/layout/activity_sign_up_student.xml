@@ -38,6 +38,16 @@
         android:hint="Name"
         android:textColor="@color/white"
         android:textColorHint="#7C7777" />
+    <EditText
+        android:id="@+id/name_up_last"
+        android:background="@drawable/edit_custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="25dp"
+        android:hint="Last Name"
+        android:textColor="@color/white"
+        android:textColorHint="#7C7777" />
 
 
     <EditText

@@ -1,15 +1,16 @@
 package com.example.leave;
 
 public class Users {
-    private String Name, Email, Password, Roll;
+    private String Name, Email, Password, Roll, lastName;
     private boolean Student;
     int Num_app;
 
-    public Users(String name, String email, String password, String roll, boolean student, int num_app) {
+    public Users(String name, String email, String password, String roll, String lastName, boolean student, int num_app) {
         Name = name;
         Email = email;
         Password = password;
         Roll = roll;
+        this.lastName = lastName;
         Student = student;
         Num_app = num_app;
     }
@@ -47,6 +48,14 @@ public class Users {
 
     public void setRoll(String roll) {
         Roll = roll;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public boolean getStudent() {

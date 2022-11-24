@@ -27,16 +27,18 @@ public class signUpStudent extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText email, password, name, roll;
+                EditText email, password, name, roll, last;
                 email = findViewById(R.id.email_up);
                 password = findViewById(R.id.password_up);
                 name = findViewById(R.id.name_up);
                 roll = findViewById(R.id.roll_up);
-                String em, pw, nm, rl;
+                last = findViewById(R.id.name_up_last);
+                String em, pw, nm, rl, ln;
                 em = email.getText().toString();
                 pw = password.getText().toString();
                 nm = name.getText().toString();
                 rl = roll.getText().toString();
+                ln = last.getText().toString();
                 if (em.isEmpty() || pw.isEmpty() || nm.isEmpty()) {
                     Toast.makeText(signUpStudent.this, "failed to make user", Toast.LENGTH_SHORT).show();
                 } else {
@@ -46,7 +48,7 @@ public class signUpStudent extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Users user = new Users(nm, em, pw, rl, true, 0);
+                                Users user = new Users(nm, em, pw, rl, ln, true, 0);
                                 String id = task.getResult().getUser().getUid();
                                 database.getReference().child("Users").child(id).setValue(user);
                                 Intent intent = new Intent(getApplicationContext(), loginActivity.class);

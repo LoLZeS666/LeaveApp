@@ -9,12 +9,14 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -53,17 +55,22 @@ import java.util.Locale;
 import java.util.Map;
 
 public class NewApplication extends AppCompatActivity {
-
+    Uri temp;
+    private static final int CROP_PIC = 100;
+    private static final int REQUEST_CAMERRA_CODE = 99;
     final Calendar myCalendar1 = Calendar.getInstance();
     final Calendar myCalendar2 = Calendar.getInstance();
     private int code = 666;
-    private static final int REQUEST_CAMERRA_CODE = 100, pic_id = 123;
+    private static final int pic_id = 123;
     Bitmap bitmap;
     Bitmap photo;
     EditText editText1, editText2;
-    FirebaseStorage storage ;
-    StorageReference storageReference ;
+    FirebaseStorage storage;
+    StorageReference storageReference;
     Integer cnt;
+    String rs;
+    Spinner type;
+    int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +78,7 @@ public class NewApplication extends AppCompatActivity {
         setContentView(R.layout.activity_new_application);
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        Button capture  = findViewById(R.id.capture);
+        Button capture = findViewById(R.id.capture);
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +133,7 @@ public class NewApplication extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText start, end, reason;
-                Spinner type;
+
                 start = findViewById(R.id.startDate);
                 end = findViewById(R.id.endDate);
                 reason = findViewById(R.id.reason);
@@ -134,8 +141,9 @@ public class NewApplication extends AppCompatActivity {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 String UID = mAuth.getUid();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
+                score(rs);
                 application app = new application(start.getText().toString(), end.getText().toString(), reason.getText().toString(),
-                        type.getSelectedItem().toString(), "Pending", true, 0);
+                        type.getSelectedItem().toString(), "Pending", true, score);
                 Map<String, Object> mp = new HashMap<>();
                 database.getReference().child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -214,11 +222,12 @@ public class NewApplication extends AppCompatActivity {
                 stringBuilder.append("\n");
             }
 //            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+            rs = stringBuilder.toString();
+            Toast.makeText(this, rs, Toast.LENGTH_SHORT).show();
 
-            TextView tv = findViewById(R.id.reason);
-            tv.setText(stringBuilder.toString());
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -226,5 +235,20 @@ public class NewApplication extends AppCompatActivity {
             photo = (Bitmap) data.getExtras().get("data");
             getTextFromImage(photo);
         }
+    }
+
+    public void score(String rs){
+        type = findViewById(R.id.docSpinner);
+        if(type.getSelectedItem().toString().equals("Thermometer")){
+            therm(rs);
+        }
+    }
+
+    private void therm(String rs) {
+        Float fl = Float.valueOf(rs);
+        Toast.makeText(this, fl.toString(), Toast.LENGTH_SHORT).show();
+        if(fl<99.5)score = 0;
+        else if(99.5<fl && 100>fl)score=1;
+        else if(fl>100)score=2;
     }
 }

@@ -47,7 +47,8 @@ public class ShowApplication extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String nm = snapshot.child("name").getValue(String.class);
                 String rll  = snapshot.child("roll").getValue(String.class);
-                name.setText(nm);
+                String ln = snapshot.child("lastName").getValue(String.class);
+                name.setText(nm +" " +ln);
                 roll.setText(rll);
             }
 
@@ -61,7 +62,6 @@ public class ShowApplication extends AppCompatActivity {
         end.setText(intent.getStringExtra("End"));
         reason.setText(intent.getStringExtra("Reason"));
         String count = String.valueOf(intent.getIntExtra("cnt", 0));
-        Toast.makeText(this, String.valueOf(intent.getIntExtra("cnt", 0)), Toast.LENGTH_SHORT).show();
         Button confirm = findViewById(R.id.confirm);
         RadioGroup radioGroup = findViewById(R.id.grp);
         Button show = findViewById(R.id.showdoc);
@@ -74,7 +74,6 @@ public class ShowApplication extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-        // find the radiobutton by returned id
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +81,6 @@ public class ShowApplication extends AppCompatActivity {
                 database = FirebaseDatabase.getInstance();
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton = (RadioButton) findViewById(selectedId);
-                Toast.makeText(ShowApplication.this, radioButton.getText(), Toast.LENGTH_SHORT).show();
                 Map<String, Object> mp = new HashMap<>();
                 mp.put("pending", false);
                 mp.put("status", radioButton.getText());
