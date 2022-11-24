@@ -247,8 +247,8 @@ public class NewApplication extends AppCompatActivity {
     private void therm(String rs) {
         Float fl = Float.valueOf(rs);
         Toast.makeText(this, fl.toString(), Toast.LENGTH_SHORT).show();
-        if(fl<99.5)score = 0;
-        else if(99.5<fl && 100>fl)score=1;
+        if(fl<99)score = 0;
+        else if(99<fl && 100>fl)score=1;
         else if(fl>100)score=2;
     }
 }

@@ -1,11 +1,13 @@
 package com.example.leave;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.ColorLong;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +37,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         holder.heading.setText(student.getReason().toString());
         holder.subheading.setText("From: " + student.getStart().toString());
         holder.approve.setText("To: " + student.getEnd().toString());
-        holder.status.setText(student.getStatus());
+        String stat = student.getStatus();
+        if(stat.equals("Pending"))holder.status.setTextColor(Color.parseColor("#FFA500"));
+        else if(stat.equals("Approve")){
+            holder.status.setText("Approved");
+            holder.status.setTextColor(Color.GREEN);
+        }
+        else if(stat.equals("Deny")){
+            holder.status.setText("Denied");
+            holder.status.setTextColor(Color.RED);
+        }
         //todo change how to set status
     }
 

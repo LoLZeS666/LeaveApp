@@ -2,6 +2,7 @@ package com.example.leave;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,10 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
         holder.status.setText("Pending");
 
         int score = student.getScore();
-        holder.score.setText(rate(score));
+        holder.score.setText("Rating: " +rate(score));
+        if(score==0)holder.score.setTextColor(Color.RED);
+        else if(score==1)holder.score.setTextColor(Color.parseColor("#FFA500"));
+        else if(score==2)holder.score.setTextColor(Color.GREEN);
         String UID = list.get(position).getSecond();
         int cnt = list.get(position).getThird();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -65,9 +69,9 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
     }
 
     private String rate(int score) {
-        if(score==0)return "sussy baka";
-        else if(score==1)return "kinda sus";
-        else if(score==2)return "not sus frfr ong deadass nocap";
+        if(score==0)return "Low";
+        else if(score==1)return "Moderate";
+        else if(score==2)return "High";
         return "";
     }
 
