@@ -2,34 +2,24 @@ package com.example.leave;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
-import android.content.ActivityNotFoundException;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,7 +31,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -57,7 +46,7 @@ import java.util.Map;
 public class NewApplication extends AppCompatActivity {
     Uri temp;
     private static final int CROP_PIC = 100;
-    private static final int REQUEST_CAMERRA_CODE = 99;
+    private static final int REQUEST_CAMERA_CODE = 99;
     final Calendar myCalendar1 = Calendar.getInstance();
     final Calendar myCalendar2 = Calendar.getInstance();
     private int code = 666;
@@ -90,7 +79,7 @@ public class NewApplication extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.CAMERA
-            }, REQUEST_CAMERRA_CODE);
+            }, REQUEST_CAMERA_CODE);
         }
         editText1 = (EditText) findViewById(R.id.startDate);
         editText2 = (EditText) findViewById(R.id.endDate);
@@ -237,9 +226,9 @@ public class NewApplication extends AppCompatActivity {
         }
     }
 
-    public void score(String rs){
+    public void score(String rs) {
         type = findViewById(R.id.docSpinner);
-        if(type.getSelectedItem().toString().equals("Thermometer")){
+        if (type.getSelectedItem().toString().equals("Thermometer")) {
             therm(rs);
         }
     }
@@ -247,8 +236,8 @@ public class NewApplication extends AppCompatActivity {
     private void therm(String rs) {
         Float fl = Float.valueOf(rs);
         Toast.makeText(this, fl.toString(), Toast.LENGTH_SHORT).show();
-        if(fl<99)score = 0;
-        else if(99<fl && 100>fl)score=1;
-        else if(fl>100)score=2;
+        if (fl < 99) score = 0;
+        else if (99 < fl && 100 > fl) score = 1;
+        else if (fl > 100) score = 2;
     }
 }

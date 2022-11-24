@@ -47,7 +47,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             holder.status.setText("Denied");
             holder.status.setTextColor(Color.RED);
         }
-        //todo change how to set status
     }
 
     @Override
