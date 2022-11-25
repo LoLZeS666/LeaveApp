@@ -84,7 +84,6 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
             }
         });
 
-        //todo change how to set status#FF5722
     }
 
     private String rate(int score) {
