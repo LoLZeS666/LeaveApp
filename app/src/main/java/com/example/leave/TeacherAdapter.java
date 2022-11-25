@@ -14,6 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,7 +45,22 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         application student = list.get(position).getFirst();
-        holder.heading.setText(student.getReason().toString());
+        String UID = list.get(position).getSecond();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.getReference().child("Users").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.child("roll").getValue(String.class);
+                holder.heading.setText("Roll Number: "+name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        holder.heading.setTextColor(Color.WHITE);
         holder.subheading.setText("From: " + student.getStart().toString());
         holder.approve.setText("To: " + student.getEnd().toString());
         holder.status.setText("Pending");
@@ -50,7 +70,6 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
         if(score==0)holder.score.setTextColor(Color.RED);
         else if(score==1)holder.score.setTextColor(Color.parseColor("#FFA500"));
         else if(score==2)holder.score.setTextColor(Color.GREEN);
-        String UID = list.get(position).getSecond();
         int cnt = list.get(position).getThird();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

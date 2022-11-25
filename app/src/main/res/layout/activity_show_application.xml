@@ -157,13 +157,14 @@
             android:textColor="@color/white" />
     </RadioGroup>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@drawable/button_shape"
         android:text="Confirm"
-        app:backgroundTint="#FF5722"
+        android:textColor="@color/white"
         android:layout_marginBottom="50dp"/>
 
 </LinearLayout>

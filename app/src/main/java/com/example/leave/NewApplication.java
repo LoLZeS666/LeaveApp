@@ -39,6 +39,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -60,6 +61,7 @@ public class NewApplication extends AppCompatActivity {
     String rs;
     Spinner type;
     int score = 0;
+    DatePickerDialog dt1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,13 +109,17 @@ public class NewApplication extends AppCompatActivity {
         editText1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(NewApplication.this, date1, myCalendar1.get(Calendar.YEAR), myCalendar1.get(Calendar.MONTH), myCalendar1.get(Calendar.DAY_OF_MONTH)).show();
+                dt1 = new DatePickerDialog(NewApplication.this, date1, myCalendar1.get(Calendar.YEAR), myCalendar1.get(Calendar.MONTH), myCalendar1.get(Calendar.DAY_OF_MONTH));
+                dt1.getDatePicker().setMinDate(new Date().getTime());
+                dt1.show();
             }
         });
         editText2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(NewApplication.this, date2, myCalendar2.get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH), myCalendar2.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog dt2 = new DatePickerDialog(NewApplication.this, date2, myCalendar2.get(Calendar.YEAR), myCalendar2.get(Calendar.MONTH), myCalendar2.get(Calendar.DAY_OF_MONTH));
+                dt2.getDatePicker().setMinDate(myCalendar1.getTimeInMillis());
+                dt2.show();
             }
         });
 
@@ -148,7 +154,7 @@ public class NewApplication extends AppCompatActivity {
                         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(NewApplication.this, "success", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NewApplication.this, "Application Submitted to Teacher!", Toast.LENGTH_SHORT).show();
                             }
                         });
                         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -157,7 +163,6 @@ public class NewApplication extends AppCompatActivity {
                                 Toast.makeText(NewApplication.this, "Failed to upload", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        Toast.makeText(NewApplication.this, "Application Submitted to Teacher!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), studentLanding.class);
                         startActivity(intent);
                     }

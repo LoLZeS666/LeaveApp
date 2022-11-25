@@ -38,7 +38,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         holder.subheading.setText("From: " + student.getStart().toString());
         holder.approve.setText("To: " + student.getEnd().toString());
         String stat = student.getStatus();
-        if(stat.equals("Pending"))holder.status.setTextColor(Color.parseColor("#FFA500"));
+        if(stat.equals("Pending")){
+            holder.status.setText("Pending");
+            holder.status.setTextColor(Color.parseColor("#FFA500"));
+        }
         else if(stat.equals("Approve")){
             holder.status.setText("Approved");
             holder.status.setTextColor(Color.GREEN);
