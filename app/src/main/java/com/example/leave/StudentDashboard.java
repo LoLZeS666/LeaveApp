@@ -48,6 +48,8 @@ public class StudentDashboard extends AppCompatActivity {
                     list.add(ap);
                 }
                 Collections.reverse(list);
+                if(list.size()==0) Toast.makeText(getApplicationContext(), "No past applications found", Toast.LENGTH_SHORT).show();
+
                 adapter.notifyDataSetChanged();
             }
 

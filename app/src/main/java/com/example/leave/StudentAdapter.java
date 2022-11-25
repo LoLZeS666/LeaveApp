@@ -19,8 +19,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     ArrayList<application> list = new ArrayList<>();
 
     public StudentAdapter(ArrayList<application> list, Context context) {
-        if(list.size()==0) Toast.makeText(context, "No past applications found", Toast.LENGTH_SHORT).show();
-
         this.list = list;
         this.context = context;
     }
