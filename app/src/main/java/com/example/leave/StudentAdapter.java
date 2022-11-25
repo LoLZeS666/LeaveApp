@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorLong;
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     ArrayList<application> list = new ArrayList<>();
 
     public StudentAdapter(ArrayList<application> list, Context context) {
+        if(list.size()==0) Toast.makeText(context, "No past applications found", Toast.LENGTH_SHORT).show();
+
         this.list = list;
         this.context = context;
     }
@@ -28,6 +31,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.student_list_view, parent, false);
+
         return new ViewHolder(view);
     }
 
