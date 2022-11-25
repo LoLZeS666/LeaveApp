@@ -136,7 +136,6 @@ public class NewApplication extends AppCompatActivity {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 String UID = mAuth.getUid();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                score(rs);
                 application app = new application(start.getText().toString(), end.getText().toString(), reason.getText().toString(),
                         type.getSelectedItem().toString(), "Pending", true, score);
                 Map<String, Object> mp = new HashMap<>();
@@ -218,6 +217,7 @@ public class NewApplication extends AppCompatActivity {
 //            Toast.makeText(this, stringBuilder.toString(), Toast.LENGTH_SHORT).show();
             rs = stringBuilder.toString();
             Toast.makeText(this, rs, Toast.LENGTH_SHORT).show();
+            score(rs);
 
         }
     }
@@ -239,10 +239,18 @@ public class NewApplication extends AppCompatActivity {
     }
 
     private void therm(String rs) {
-        Float fl = Float.valueOf(rs);
-        Toast.makeText(this, fl.toString(), Toast.LENGTH_SHORT).show();
-        if (fl < 99) score = 0;
-        else if (99 <= fl && 100 >= fl) score = 1;
-        else if (fl > 100) score = 2;
+        try {
+            Float fl = Float.valueOf(rs);
+            Toast.makeText(this, fl.toString(), Toast.LENGTH_SHORT).show();
+            if (fl < 99) score = 0;
+            else if (99 <= fl && 100 >= fl) score = 1;
+            else if (fl > 100) score = 2;
+
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Not recognized!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, pic_id);
+        }
     }
 }
